@@ -55,7 +55,7 @@ class InstanciaRecorridoMixto:
 
 def cargar_instancia():
     # El 1er parametro es el nombre del archivo de entrada
-    nombre_archivo = "instancia.txt"
+    nombre_archivo = sys.argv[1].strip()
     # Crea la instancia vacia
     instancia = InstanciaRecorridoMixto()
     # Llena la instancia con los datos del archivo de entrada 
@@ -73,9 +73,9 @@ def agregar_variables(prob, instancia):
     n = instancia.cantidad_clientes
     
     # Poner nombre a las variables y llenar coef_funcion_objetivo
-    nombres = [f"x_{i}{0}" for i in range(1,n+1)] + [f"x_{0}{j}" for j in range(1,n+1)] + [f"x_{i}{j}" for i in range(1,n+1) for j in range(1,n+1)] + [f"y_{i}{j}" for i in range(1,n+1) for j in range(1,n+1)] + [f"c_{i}" for i in range(1,n+1)] + [f"b_{i}" for i in range(1,n+1)] + [f"D_{i}" for i in range(1,n+1)] + [f"u_{i}" for i in range(1,n+1)]
+    nombres = [f"x_{i},{0}" for i in range(1,n+1)] + [f"x_{0},{j}" for j in range(1,n+1)] + [f"x_{i},{j}" for i in range(1,n+1) for j in range(1,n+1)] + [f"y_{i},{j}" for i in range(1,n+1) for j in range(1,n+1)] + [f"c_{i}" for i in range(1,n+1)] + [f"b_{i}" for i in range(1,n+1)] + [f"D_{i}" for i in range(1,n+1)] + [f"u_{i}" for i in range(1,n+1)]
     coeficientes_funcion_objetivo = [0 for _ in range(0,n)] + [0 for _ in range(0,n)] + [instancia.costos[i][j] for i in range(0,n) for j in range(0,n)] + [0 for _ in range(1,n+1) for _ in range(1,n+1)] + [0 for _ in range(1,n+1)] + [instancia.costo_repartidor for _ in range(0,n)] + [0 for _ in range(1,n+1)] + [0 for _ in range(1,n+1)] 
-    prob.variables.add(obj = coeficientes_funcion_objetivo, lb = [0 for _ in nombres[:-n]]+[1 for _ in range(n)], ub = [1 for _ in nombres[:-n]]+[n for _ in range(n)], types = ["I" for _ in nombres], names = nombres)
+    prob.variables.add(obj = coeficientes_funcion_objetivo, lb = [0 for _ in nombres[:-n]]+[-1 for _ in range(n)], ub = [1 for _ in nombres[:-n]]+[n for _ in range(n)], types = ["I" for _ in nombres], names = nombres)
 
 def agregar_restricciones(prob, instancia):
     # Agregar las restricciones ax <= (>= ==) b:
