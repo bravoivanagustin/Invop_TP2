@@ -123,7 +123,7 @@ def agregar_restricciones(prob, instancia):
     prob.linear_constraints.add(lin_expr = a5, senses = s5, rhs = b5, names = n5)
     
     a6 = [[[k+n**2+2*n,k//n+2*n**2+2*n], [1,-1]] for k in range(0,n**2)] #6, otra manera: [[[k for k in range(len(nombres)) if nombres[k][0:4] == f"y_{i}{j}"], [1]] for i in range(1,n+1) for j in range(1,n+1)] 
-    b6 = [0 for _ in range(len(a6))]
+    b6 = [0 for _ in range(len(a6))] # 6 7 8 9 10 11 12 13 14 
     s6 = ['L' for _ in range(len(a6))]
     n6 = [f'pasa_bici_paso_bondi{i}' for i in range(len(a6))]
     prob.linear_constraints.add(lin_expr = a6, senses = s6, rhs = b6, names = n6)
@@ -187,6 +187,12 @@ def agregar_restricciones(prob, instancia):
     s16 = ['E' for _ in range(len(a16))]
     n16 = [f'x_{i}{i} nulo' for i in range(len(a16))]
     prob.linear_constraints.add(lin_expr = a16, senses = s16, rhs = b16, names = n16)
+    
+    a17 = [[[i*n+n**2+2*n+j-1 for j in instancia.refrigerados], [1]*n] for i in range(0,n)]
+    b17 = [1 for _ in range(len(a17))]
+    s17 = ['L' for _ in range(len(a17))]
+    n17 = [f'refigerados_{i}' for i in range(len(a17))]
+    prob.linear_constraints.add(lin_expr = a17, senses = s17, rhs = b17, names = n17)
     
 def armar_lp(prob, instancia):
 
