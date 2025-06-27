@@ -149,7 +149,7 @@ def agregar_restricciones(prob, instancia):
     a10 = [[[k+2*n, k//n+2*n**2+3*n], [1,-1]] for k in range(n**2,2*n**2)] #10, otra manera: [[[k for k in range(len(nombres)) if nombres[k][0:4] == f"y_{i}{j}"], [1]] for i in range(1,n+1) for j in range(1,n+1)]
     b10 = [0 for _ in range(len(a10))]
     s10 = ['L' for _ in range(len(a10))]
-    n10 = [f'salgo_bici_{i}' for i in range(len(a10))]
+    n10 = [f'delta_bici_{i}' for i in range(len(a10))]
 #    prob.linear_constraints.add(lin_expr = a10, senses = s10, rhs = b10, names = n10)
     
     a11 = [[[i*n+n**2+2*n+j for j in range(0,n)]+[2*n**2+4*n+i], [1]*n+[-4]] for i in range(0,n)] #11, otra manera: [[[j for j in range(len(nombres)) if nombres[j][0:3] == f"y_{i}"], [1]*n] for i in range(1,n+1)] 
